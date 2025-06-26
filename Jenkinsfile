@@ -1,31 +1,28 @@
 pipeline {
-    tools {
-        docker 'docker-latest'
-    }
+    agent any
 
-    agent {
-        docker {
-            image 'maven:3.9.6-eclipse-temurin-17'
-            args '-v $HOME/.m2:/root/.m2'
-        }
+    tools {
+        dockerTool 'docker-latest'
     }
 
     stages {
-        stage('1. Build') {
+        stage('Checkout') {
             steps {
-                echo 'Buildando com JDK 17...'
-                sh 'mvn -B clean compile'
+                git 'https://github.com/BiancaDGuedes/jenkins_with_docker.git'
             }
         }
-        stage('2. Test') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Testando com JDK 17...'
-                sh 'mvn -B test'
+                echo 'Construindo a imagem Docker...'
+                sh 'docker build -t minha-imagem:latest .'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Executando testes no container...'
+                sh 'docker run --rm minha-imagem:latest ./run-tests.sh'
             }
         }
     }
