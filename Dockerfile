@@ -1,11 +1,15 @@
-# Etapa 1: Build e testes com Maven
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Define a pasta de trabalho
 WORKDIR /app
-
-# Copia os arquivos do projeto para o container
 COPY . .
 
-# Executa o build e os testes
-RUN mvn clean test
+RUN mvn clean package
+
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/meu-projeto-jenkins-1.0-SNAPSHOT.jar ./app.jar
+
+CMD ["java", "-jar", "app.jar"]
+
