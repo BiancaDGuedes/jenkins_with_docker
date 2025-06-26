@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.jenkins
+
+    privileged: true
+    user: root
     ports:
       - 8080:8080
     volumes:
