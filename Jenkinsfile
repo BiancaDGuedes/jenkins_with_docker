@@ -12,17 +12,10 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and Test') {
             steps {
-                echo 'Construindo a imagem Docker...'
+                echo 'Construindo a imagem e executando os testes...'
                 sh 'docker build -t minha-imagem:latest .'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Executando testes no container...'
-                sh 'docker run --rm minha-imagem:latest ./run-tests.sh'
             }
         }
     }
