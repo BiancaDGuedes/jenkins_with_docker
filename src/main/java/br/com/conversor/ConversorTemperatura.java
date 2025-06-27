@@ -1,6 +1,10 @@
 package br.com.conversor;
 
-public class ConversorTemperatura {
-    public double fahrenheitParaCelsius(double f) { return (f - 32) * 5.0 / 9.0; }
-    public double celsiusParaFahrenheit(double c) { return (c * 9.0 / 5.0) + 32; }
+public class MainApp {
+    public static void main(String[] args) {
+        ConversorTemperatura c = new ConversorTemperatura();
+        System.out.println("32F em Celsius: " + c.fahrenheitParaCelsius(32.0));
+        System.out.println("100C em Fahrenheit: " + c.celsiusParaFahrenheit(100.0));
+    }
 }
+
