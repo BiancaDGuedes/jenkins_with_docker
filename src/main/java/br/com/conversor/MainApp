@@ -1,0 +1,12 @@
+package br.com.conversor;
+
+public class MainApp {
+    public static void main(String[] args) {
+        ConversorTemperatura conversor = new ConversorTemperatura();
+        double f = 32.0;
+        double c = 100.0;
+        
+        System.out.println(f + " Fahrenheit em Celsius é: " + conversor.fahrenheitParaCelsius(f));
+        System.out.println(c + " Celsius em Fahrenheit é: " + conversor.celsiusParaFahrenheit(c));
+    }
+}
